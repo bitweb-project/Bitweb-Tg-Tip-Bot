@@ -61,8 +61,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. Download a full node here: "
-                                              "[Full Node](https://github\\.com/sugarchain\\-project/sugarchain/releases/latest)",
+                                              "address given by this bot\\. "
+                                              "Use DM with bot for more commands\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -73,8 +73,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. Download a full node here: "
-                                              "[Full Node](https://github\\.com/sugarchain\\-project/sugarchain/releases/latest)",
+                                              "address given by this bot\\. "
+                                              "Use DM with bot for more commands\\.",
                                          parse_mode="MarkdownV2")
             else:
                 if user["username"] != db.getUserName(str(user["id"])):
@@ -96,8 +96,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. Download a full node here: "
-                                              "[Full Node](https://github\\.com/sugarchain\\-project/sugarchain/releases/latest)",
+                                              "address given by this bot\\. "
+                                              "Use DM with bot for more commands\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -108,8 +108,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. Download a full node here: "
-                                              "[Full Node](https://github\\.com/sugarchain\\-project/sugarchain/releases/latest)",
+                                              "address given by this bot\\. "
+                                              "Use DM with bot for more commands\\.",
                                          parse_mode="MarkdownV2")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id, text=f"[{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']}), please set a username before using this bot", parse_mode="MarkdownV2")
@@ -123,11 +123,10 @@ def about(update, ctx):
     if timestart < int(timestamp):
         if update.message.chat.type == "private":
             ctx.bot.send_message(chat_id=update.message.chat_id,
-                                 text="""
-Hello there,
-I am the Sugarchain Telegram Tipbot, created by [salmaan1234](tg://user?id=905257225)\\. Run /help to see my full list of commands\\.
-This bot is fully [Open Source](https://github\\.com/Nugetzrul3/SugarchainTGBot)\\.
-                                 """, parse_mode="MarkdownV2")
+                                 text="Hello there, "
+                                 "I am the Bitweb Telegram Tipbot\\. Run /help to see my full list of commands\\. "
+                                 "This bot is fully [Open Source](https://github\\.com/bitweb\\-project/BitwebTGBot)\\."
+                                 , parse_mode="MarkdownV2")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id,
                                  text="This command only works in direct messages. See /help to see what commands work in group")
@@ -142,8 +141,8 @@ def price(update, ctx):
 
         price = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc").json()
 
-        btc = str(format(price["sugarchain"]["btc"], '.8f'))
-        usd = str(price["sugarchain"]["usd"])
+        btc = str(format(price["bitweb"]["btc"], '.8f'))
+        usd = str(price["bitweb"]["usd"])
 
         ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
 Current {config.coin['ticker']}/BTC price: {btc} BTC
@@ -222,14 +221,14 @@ def tip(update, ctx):
                                     ]
                                     reply_markup = InlineKeyboardMarkup(keyboard)
                                     ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                         text=f"You are about to send {amount} {config.coin['ticker']} with an additional fee of {format(float(config.coin['minFee']), '.8f')} SUGAR to @{target}. Please click Yes to confirm",
+                                                         text=f"You are about to send {amount} {config.coin['ticker']} with an additional fee of {format(float(config.coin['minFee']), '.8f')} BTE to @{target}. Please click Yes to confirm",
                                                          reply_markup=reply_markup)
                                 else:
                                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                                          text="You cannot send negative amounts or amounts less than 0.00001!")
                             else:
                                 ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                     text="Invalid amount of SUGAR. Please try again")
+                                                     text="Invalid amount of BTE. Please try again")
                         else:
                             ctx.bot.send_message(chat_id=update.message.chat_id, text="No amount specified!")
             else:
@@ -255,7 +254,7 @@ def withdraw(update, ctx):
             else:
                 address = None
                 try:
-                    address = str(args[1])[7:]
+                    address = str(args[1])[3:]
                 except IndexError:
                     address = address
 
@@ -266,8 +265,8 @@ def withdraw(update, ctx):
                     amount = amount
 
                 if address is not None:
-                    if checkAdd("sugar1q" + address):
-                        if ("sugar1q" + address) != str(sender_address):
+                    if checkAdd("web" + address):
+                        if ("web" + address) != str(sender_address):
                             if amount is not None:
                                 if isFloat(amount):
                                     if float(amount) > float(config.coin['minFee']):
@@ -279,7 +278,7 @@ def withdraw(update, ctx):
                                         ]
                                         reply_markup = InlineKeyboardMarkup(keyboard)
                                         ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                             text=f"You are about to withdraw {amount} {config.coin['ticker']}, with a fee of {format(float(config.coin['minFee']), '.8f')} SUGAR to {'sugar1q' + address}. Please click Yes to confirm",
+                                                             text=f"You are about to withdraw {amount} {config.coin['ticker']}, with a fee of {format(float(config.coin['minFee']), '.8f')} BTE to {'web' + address}. Please click Yes to confirm",
                                                              reply_markup=reply_markup)
                                     else:
                                         ctx.bot.send_message(chat_id=update.message.chat_id, text="You cannot withdraw negative amounts or amounts less than 0.00001")
@@ -352,7 +351,7 @@ def export(update, ctx):
     if timestart < int(timestamp):
         user = update.message.from_user
         if update.message.chat.type == "private":
-            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"You're exported secret key: <code>{db.getWIF(user['id'])}</code>. <b>Important:</b> Do not share this key. If you do share this key, all your SUGAR will be lost.", parse_mode="HTML")
+            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"You're exported secret key: <code>{db.getWIF(user['id'])}</code>. <b>Important:</b> Do not share this key. If you do share this key, all your BTE will be lost.", parse_mode="HTML")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id, text="This command only works in private messages."
                                                                       " Send me a private message instead :D")
@@ -444,7 +443,7 @@ def tip_or_withdrawFunc(update, ctx):
                     txid = requests.post(f"{config.apiUrl}/broadcast", data=post_data).json()['result']
 
                     ctx.bot.send_message(chat_id=chID, text=f"Success, sent @{db.getUserName(data[1])} {data[2]} {config.coin['ticker']}.")
-                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://sugar\\.wtf/esplora/tx/{str(txid)})", parse_mode="MarkdownV2")
+                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.org/tx/{str(txid)})", parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=chID, text="You do not have enough funds to tip that amount")
 
@@ -461,7 +460,7 @@ def tip_or_withdrawFunc(update, ctx):
                 sender_address = P2wpkhAddress(getAddress(sender))
                 sender_balance = 0
                 amount = convertToSatoshis(Decimal(data[2])) + fee
-                target_address = P2wpkhAddress("sugar1q" + data[1])
+                target_address = P2wpkhAddress("web" + data[1])
 
                 unspent = requests.get(f"{config.apiUrl}/unspent/{sender_address.to_string()}").json()['result']
 
@@ -497,12 +496,12 @@ def tip_or_withdrawFunc(update, ctx):
                     txid = requests.post(f"{config.apiUrl}/broadcast", data=post_data).json()['result']
 
                     ctx.bot.send_message(chat_id=chID, text=f"Success, withdrew {data[2]} {config.coin['ticker']} to address {target_address.to_string()} ")
-                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://sugar\\.wtf/esplora/tx/{str(txid)})", parse_mode="MarkdownV2")
+                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.org/tx/{str(txid)})", parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=chID, text="You do not have enough funds to withdraw the specified amount.")
             elif data[0] == "N":
                 ctx.bot.delete_message(chat_id=chID, message_id=msgID)
-                ctx.bot.send_message(chat_id=chID, text=f"You declined withdrawing {data[2]} {config.coin['ticker']} to address {'sugar1q' + data[1]}")
+                ctx.bot.send_message(chat_id=chID, text=f"You declined withdrawing {data[2]} {config.coin['ticker']} to address {'web' + data[1]}")
 
 
 def getBalance(id: str):
@@ -541,7 +540,7 @@ def getAddress(id: str):
 def convertToSatoshis(amount: Decimal):
     return int(round(amount * 100000000))
 
-def convertToSugar(amount: int):
+def convertToBte(amount: int):
     return Decimal(amount / 100000000)
 
 
