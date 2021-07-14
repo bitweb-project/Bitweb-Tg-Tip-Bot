@@ -51,18 +51,19 @@ def help(update, ctx):
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /info
-4\\. /tip @user amount
-5\\. /deposit
-6\\. /balance
-7\\. /withdraw address amount
-8\\. /export
-9\\. /about
+3\\. /tip @user amount
+4\\. /info \\(DM Bot\\)
+5\\. /deposit \\(DM Bot\\)
+6\\. /balance \\(DM Bot\\)
+7\\. /withdraw address amount \\(DM Bot \\- This version is support only with bech32 address\\)
+8\\. /export \\(DM Bot\\)
+9\\. /about \\(DM Bot\\)
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\.",
+                                              "Use DM with bot for more commands\\. "
+                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -70,11 +71,18 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 1\\. /help
 2\\. /price
 3\\. /tip @user amount
+4\\. /info \\(DM Bot\\)
+5\\. /deposit \\(DM Bot\\)
+6\\. /balance \\(DM Bot\\)
+7\\. /withdraw address amount \\(DM Bot \\- This version is support only with bech32 address\\)
+8\\. /export \\(DM Bot\\)
+9\\. /about \\(DM Bot\\)
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\.",
+                                              "Use DM with bot for more commands\\. "
+                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
             else:
                 if user["username"] != db.getUserName(str(user["id"])):
@@ -86,18 +94,19 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /info
-4\\. /tip @user amount
-5\\. /deposit
-6\\. /balance
-7\\. /withdraw address amount
-8\\. /export
-9\\. /about
+3\\. /tip @user amount
+4\\. /info \\(DM Bot\\)
+5\\. /deposit \\(DM Bot\\)
+6\\. /balance \\(DM Bot\\)
+7\\. /withdraw address amount \\(DM Bot \\- This version is support only with bech32 address\\)
+8\\. /export \\(DM Bot\\)
+9\\. /about \\(DM Bot\\)
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\.",
+                                              "Use DM with bot for more commands\\. "
+                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -105,11 +114,18 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 1\\. /help
 2\\. /price
 3\\. /tip @user amount
+4\\. /info \\(DM Bot\\)
+5\\. /deposit \\(DM Bot\\)
+6\\. /balance \\(DM Bot\\)
+7\\. /withdraw address amount \\(DM Bot \\- This version is support only with bech32 address\\)
+8\\. /export \\(DM Bot\\)
+9\\. /about \\(DM Bot\\)
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\.",
+                                              "Use DM with bot for more commands\\. "
+                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id, text=f"[{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']}), please set a username before using this bot", parse_mode="MarkdownV2")
@@ -140,14 +156,24 @@ def price(update, ctx):
     if timestart < int(timestamp):
 
         price = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc").json()
-
-        btc = str(format(price["bitweb"]["btc"], '.8f'))
-        usd = str(price["bitweb"]["usd"])
-
-        ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
-Current {config.coin['ticker']}/BTC price: {btc} BTC
+        price2 = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
+        #print(str(price2['name']).lower())
+        if len(price)>0:
+            btc = str(format(price[config.coin['coin_name']]["btc"], '.8f'))
+            usd = str(price[config.coin['coin_name']]["usd"])
+            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+    Current {config.coin['ticker']}/BTC price: {btc} BTC
 Current {config.coin['ticker']}/USD price: ${usd}
-""", parse_mode="HTML")
+    """, parse_mode="HTML")
+        elif len(price2)>0 and ((price2['name']).lower()==(config.coin['coin_name']).lower()):
+            btc = float(price2["price_btc"])
+            usd = float(price2["price_usd"])
+            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+    Current {config.coin['ticker']}/BTC price: {('%.8f' % btc)} BTC
+Current {config.coin['ticker']}/USD price: ${('%.8f' % usd)}
+    """, parse_mode="HTML")
+        else:
+            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""Error market cap connection""", parse_mode="HTML")
 
 def info(update, ctx):
     gettime = str(update.message.date).split()
@@ -216,19 +242,19 @@ def tip(update, ctx):
                                     keyboard = [
                                         [
                                             InlineKeyboardButton("Yes", callback_data=f"Y,{db.getUserID(target)},{amount},{user['id']},t"),
-                                            InlineKeyboardButton("No", callback_data=f"N,{target},{amount},{user['id']},t")
+                                            InlineKeyboardButton("No", callback_data=f"N,{db.getUserID(target)},{amount},{user['id']},t")
                                         ]
                                     ]
                                     reply_markup = InlineKeyboardMarkup(keyboard)
                                     ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                         text=f"You are about to send {amount} {config.coin['ticker']} with an additional fee of {format(float(config.coin['minFee']), '.8f')} BTE to @{target}. Please click Yes to confirm",
+                                                         text=f"You are about to send {amount} {config.coin['ticker']} with an additional fee of {format(float(config.coin['minFee']), '.8f')} {config.coin['ticker']} to @{target}. Please click Yes to confirm",
                                                          reply_markup=reply_markup)
                                 else:
                                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                                          text="You cannot send negative amounts or amounts less than 0.00001!")
                             else:
                                 ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                     text="Invalid amount of BTE. Please try again")
+                                                     text=f"Invalid amount of {config.coin['ticker']}. Please try again")
                         else:
                             ctx.bot.send_message(chat_id=update.message.chat_id, text="No amount specified!")
             else:
@@ -254,7 +280,7 @@ def withdraw(update, ctx):
             else:
                 address = None
                 try:
-                    address = str(args[1])[3:]
+                    address = str(args[1])[5:]
                 except IndexError:
                     address = address
 
@@ -265,8 +291,8 @@ def withdraw(update, ctx):
                     amount = amount
 
                 if address is not None:
-                    if checkAdd("web" + address):
-                        if ("web" + address) != str(sender_address):
+                    if checkAdd("web1q" + address):
+                        if ("web1q" + address) != str(sender_address):
                             if amount is not None:
                                 if isFloat(amount):
                                     if float(amount) > float(config.coin['minFee']):
@@ -278,7 +304,7 @@ def withdraw(update, ctx):
                                         ]
                                         reply_markup = InlineKeyboardMarkup(keyboard)
                                         ctx.bot.send_message(chat_id=update.message.chat_id,
-                                                             text=f"You are about to withdraw {amount} {config.coin['ticker']}, with a fee of {format(float(config.coin['minFee']), '.8f')} BTE to {'web' + address}. Please click Yes to confirm",
+                                                             text=f"You are about to withdraw {amount} {config.coin['ticker']}, with a fee of {format(float(config.coin['minFee']), '.8f')} {config.coin['ticker']} to {'web1q' + address}. Please click Yes to confirm",
                                                              reply_markup=reply_markup)
                                     else:
                                         ctx.bot.send_message(chat_id=update.message.chat_id, text="You cannot withdraw negative amounts or amounts less than 0.00001")
@@ -351,7 +377,7 @@ def export(update, ctx):
     if timestart < int(timestamp):
         user = update.message.from_user
         if update.message.chat.type == "private":
-            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"You're exported secret key: <code>{db.getWIF(user['id'])}</code>. <b>Important:</b> Do not share this key. If you do share this key, all your BTE will be lost.", parse_mode="HTML")
+            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"You're exported secret key: <code>{db.getWIF(user['id'])}</code>. <b>Important:</b> Do not share this key. If you do share this key, all your {config.coin['ticker']} will be lost.", parse_mode="HTML")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id, text="This command only works in private messages."
                                                                       " Send me a private message instead :D")
@@ -460,7 +486,7 @@ def tip_or_withdrawFunc(update, ctx):
                 sender_address = P2wpkhAddress(getAddress(sender))
                 sender_balance = 0
                 amount = convertToSatoshis(Decimal(data[2])) + fee
-                target_address = P2wpkhAddress("web" + data[1])
+                target_address = P2wpkhAddress("web1q" + data[1])
 
                 unspent = requests.get(f"{config.apiUrl}/unspent/{sender_address.to_string()}").json()['result']
 
@@ -501,7 +527,7 @@ def tip_or_withdrawFunc(update, ctx):
                     ctx.bot.send_message(chat_id=chID, text="You do not have enough funds to withdraw the specified amount.")
             elif data[0] == "N":
                 ctx.bot.delete_message(chat_id=chID, message_id=msgID)
-                ctx.bot.send_message(chat_id=chID, text=f"You declined withdrawing {data[2]} {config.coin['ticker']} to address {'web' + data[1]}")
+                ctx.bot.send_message(chat_id=chID, text=f"You declined withdrawing {data[2]} {config.coin['ticker']} to address {'web1q' + data[1]}")
 
 
 def getBalance(id: str):
