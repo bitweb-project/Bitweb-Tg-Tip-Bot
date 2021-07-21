@@ -61,7 +61,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "\nAddress given by this bot\\. "
+                                              "address given by this bot\\. "
                                               "\nUse DM with bot for more commands\\. "
                                               "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
                                               "\nTo register your username, type /help in the private chat with the bot\\. "
@@ -82,7 +82,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "\nAddress given by this bot\\. "
+                                              "address given by this bot\\. "
                                               "\nUse DM with bot for more commands\\. "
                                               "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
                                               "\nTo register your username, type /help in the private chat with the bot\\. "
@@ -108,7 +108,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "\nAddress given by this bot\\. "
+                                              "address given by this bot\\. "
                                               "\nUse DM with bot for more commands\\. "
                                               "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
                                               "\nTo register your username, type /help in the private chat with the bot\\. "
@@ -129,7 +129,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "\nAddress given by this bot\\. "
+                                              "address given by this bot\\. "
                                               "\nUse DM with bot for more commands\\. "
                                               "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
                                               "\nTo register your username, type /help in the private chat with the bot\\. "
