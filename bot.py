@@ -159,11 +159,11 @@ def price(update, ctx):
         price2 = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
         #print(str(price2['name']).lower())
         if len(price)>0:
-            btc = str(format(price[config.coin['coin_name']]["btc"], '.8f'))
-            usd = str(price[config.coin['coin_name']]["usd"])
+            btc = float(price2["price_btc"])
+            usd = float(price2["price_usd"])
             ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
-    Current {config.coin['ticker']}/BTC price: {btc} BTC
-Current {config.coin['ticker']}/USD price: ${usd}
+    Current {config.coin['ticker']}/BTC price: {('%.8f' % btc)} BTC
+Current {config.coin['ticker']}/USD price: ${('%.8f' % usd)}
     """, parse_mode="HTML")
         elif len(price2)>0 and ((price2['name']).lower()==(config.coin['coin_name']).lower()):
             btc = float(price2["price_btc"])
