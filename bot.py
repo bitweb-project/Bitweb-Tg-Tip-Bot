@@ -61,11 +61,11 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\. "
-                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
-                                              "To register your username, type /help in the private chat with the bot\\. "
-                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
+                                              "\nAddress given by this bot\\. "
+                                              "\nUse DM with bot for more commands\\. "
+                                              "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "\nTo register your username, type /help in the private chat with the bot\\. "
+                                              "\nTransaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -82,11 +82,11 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\. "
-                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
-                                              "To register your username, type /help in the private chat with the bot\\. "
-                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
+                                              "\nAddress given by this bot\\. "
+                                              "\nUse DM with bot for more commands\\. "
+                                              "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "\nTo register your username, type /help in the private chat with the bot\\. "
+                                              "\nTransaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
             else:
                 if user["username"] != db.getUserName(str(user["id"])):
@@ -108,11 +108,11 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\. "
-                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
-                                              "To register your username, type /help in the private chat with the bot\\. "
-                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
+                                              "\nAddress given by this bot\\. "
+                                              "\nUse DM with bot for more commands\\. "
+                                              "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "\nTo register your username, type /help in the private chat with the bot\\. "
+                                              "\nTransaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
@@ -129,11 +129,11 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                     """, parse_mode="MarkdownV2")
                     ctx.bot.send_message(chat_id=update.message.chat_id,
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
-                                              "address given by this bot\\. "
-                                              "Use DM with bot for more commands\\. "
-                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
-                                              "To register your username, type /help in the private chat with the bot\\. "
-                                              "Transaction fee for tip and withdraw 0\\.0001\\.",
+                                              "\nAddress given by this bot\\. "
+                                              "\nUse DM with bot for more commands\\. "
+                                              "\nFor use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "\nTo register your username, type /help in the private chat with the bot\\. "
+                                              "\nTransaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
         else:
             ctx.bot.send_message(chat_id=update.message.chat_id, text=f"[{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']}), please set a username before using this bot", parse_mode="MarkdownV2")
