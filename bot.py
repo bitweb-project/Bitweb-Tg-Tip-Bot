@@ -239,7 +239,7 @@ def tip(update, ctx):
             if target is not None:
                 if not db.getUserID(target):
                     ctx.bot.send_message(chat_id=update.message.chat_id,
-                                         text="Oops, looks like your sending to a user who hasn't registered or has changed their username. Ask them to do /help to register/re-register!\nPlease be mindful that usernames are case senstive. Make sure that the case of the target is correct.")
+                                         text="Oops, looks like your sending to a user who hasn't registered or has changed their username. \nAsk them to do /help to register/re-register!\nPlease be mindful that usernames are case senstive. \nOr are you trying to send to yourself or a bot. \nMake sure that the case of the target is correct.")
                 else:
                     if user["username"] == target:
                         ctx.bot.send_message(chat_id=update.message.chat_id, text="😆 You can't tip yourself!")
