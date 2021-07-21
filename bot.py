@@ -51,7 +51,7 @@ def help(update, ctx):
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /tip @user amount
+3\\. /tip @user amount \\(amount most be 0\\.x even if 1 coin \\- 1\\.x or 1\\.xxxxxxxx\\)
 4\\. /info \\(DM Bot\\)
 5\\. /deposit \\(DM Bot\\)
 6\\. /balance \\(DM Bot\\)
@@ -63,6 +63,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
                                               "Use DM with bot for more commands\\. "
+                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "To register your username, type /help in the private chat with the bot\\. "
                                               "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
@@ -70,7 +72,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /tip @user amount
+3\\. /tip @user amount \\(amount most be 0\\.x even if 1 coin \\- 1\\.x or 1\\.xxxxxxxx\\)
 4\\. /info \\(DM Bot\\)
 5\\. /deposit \\(DM Bot\\)
 6\\. /balance \\(DM Bot\\)
@@ -82,6 +84,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
                                               "Use DM with bot for more commands\\. "
+                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "To register your username, type /help in the private chat with the bot\\. "
                                               "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
             else:
@@ -94,7 +98,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /tip @user amount
+3\\. /tip @user amount \\(amount most be 0\\.x even if 1 coin \\- 1\\.x or 1\\.xxxxxxxx\\)
 4\\. /info \\(DM Bot\\)
 5\\. /deposit \\(DM Bot\\)
 6\\. /balance \\(DM Bot\\)
@@ -106,6 +110,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
                                               "Use DM with bot for more commands\\. "
+                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "To register your username, type /help in the private chat with the bot\\. "
                                               "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
                 else:
@@ -113,7 +119,7 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
 Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\\. Here are my commands:
 1\\. /help
 2\\. /price
-3\\. /tip @user amount
+3\\. /tip @user amount \\(amount most be 0\\.x even if 1 coin \\- 1\\.x or 1\\.xxxxxxxx\\)
 4\\. /info \\(DM Bot\\)
 5\\. /deposit \\(DM Bot\\)
 6\\. /balance \\(DM Bot\\)
@@ -125,6 +131,8 @@ Hey there [{escape_markdown(user['first_name'], 2)}](tg://user?id={user['id']})\
                                          text="*Please Note: * It is highly recommended that you do not directly mine to the "
                                               "address given by this bot\\. "
                                               "Use DM with bot for more commands\\. "
+                                              "For use bot for tip, you most have filled @ username at telegram profile\\. "
+                                              "To register your username, type /help in the private chat with the bot\\. "
                                               "Transaction fee for tip and withdraw 0\\.0001\\.",
                                          parse_mode="MarkdownV2")
         else:
