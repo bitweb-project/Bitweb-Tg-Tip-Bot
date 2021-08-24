@@ -162,26 +162,22 @@ def price(update, ctx):
     timestamp = strict_rfc3339.rfc3339_to_timestamp(timetoconvert)
 
     if timestart < int(timestamp):
+    
+        price = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
 
-        price = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc").json()
-        price2 = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
-        #print(str(price2['name']).lower())
-        if len(price)>0:
-            btc = float(price2["price_btc"])
-            usd = float(price2["price_usd"])
-            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
-    Current {config.coin['ticker']}/BTC price: {('%.8f' % btc)} BTC
-Current {config.coin['ticker']}/USD price: ${('%.8f' % usd)}
-    """, parse_mode="HTML")
-        elif len(price2)>0 and ((price2['name']).lower()==(config.coin['coin_name']).lower()):
-            btc = float(price2["price_btc"])
-            usd = float(price2["price_usd"])
-            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
-    Current {config.coin['ticker']}/BTC price: {('%.8f' % btc)} BTC
-Current {config.coin['ticker']}/USD price: ${('%.8f' % usd)}
-    """, parse_mode="HTML")
-        else:
-            ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""Error market cap connection""", parse_mode="HTML")
+        price2 = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc&include_24hr_vol=true").json()
+        
+        btc = str(format(price2[config.coin['coin_name']]["btc"], '.8f'))
+        usd = str(price2[config.coin['coin_name']]["usd"])
+        btc_vol_24h = str(format(price2[config.coin['coin_name']]["btc_24h_vol"],'.8f'))
+        usd_vol_24h = str(format(price2[config.coin['coin_name']]["usd_24h_vol"],'.7f'))
+        
+        ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+Current {config.coin['ticker']}/BTC price: {btc} BTC 
+24h volume {btc_vol_24h} BTC
+Current {config.coin['ticker']}/USD price: ${usd}
+24h volume ${usd_vol_24h}
+""", parse_mode="HTML")
 
 def info(update, ctx):
     gettime = str(update.message.date).split()
