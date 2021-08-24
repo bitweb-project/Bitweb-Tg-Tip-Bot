@@ -173,10 +173,11 @@ def price(update, ctx):
         usd_vol_24h = str(format(price2[config.coin['coin_name']]["usd_24h_vol"],'.7f'))
         
         ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
-Current {config.coin['ticker']}/BTC price: {btc} BTC 
-24h volume {btc_vol_24h} BTC
-Current {config.coin['ticker']}/USD price: ${usd}
-24h volume ${usd_vol_24h}
+Current {config.coin['ticker']}/BTC price: <code>{btc}</code>  BTC 
+24h volume: <code>{btc_vol_24h}</code>  BTC
+
+Current {config.coin['ticker']}/USD price: $ <code>{usd}</code> 
+24h volume: $ <code>{usd_vol_24h}</code> 
 """, parse_mode="HTML")
 
 def info(update, ctx):
