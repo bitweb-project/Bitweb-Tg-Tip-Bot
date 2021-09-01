@@ -163,22 +163,70 @@ def price(update, ctx):
 
     if timestart < int(timestamp):
     
-        price = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
-
-        price2 = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc&include_24hr_vol=true").json()
+        price = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc&include_24hr_vol=true").json()
         
-        btc = str(format(price2[config.coin['coin_name']]["btc"], '.8f'))
-        usd = str(price2[config.coin['coin_name']]["usd"])
-        btc_vol_24h = str(format(price2[config.coin['coin_name']]["btc_24h_vol"],'.8f'))
-        usd_vol_24h = str(format(price2[config.coin['coin_name']]["usd_24h_vol"],'.7f'))
+        price2 = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
+        
+        price3 = requests.get(f"https://exchange-open-api.coineal.com/open/api/get_ticker?symbol=btecnv").json()
+        
+        price4 = requests.get(f"https://exchange-open-api.coineal.com/open/api/get_ticker?symbol=cnvbtc").json()
+        
+        price5 = requests.get(f"https://exchange-open-api.coineal.com/open/api/get_ticker?symbol=cnvusdt").json()
+        
+        btc = str(format(price[config.coin['coin_name']]["btc"], '.8f'))
+        usd = str(price[config.coin['coin_name']]["usd"])
+        btc_vol_24h = str(format(price[config.coin['coin_name']]["btc_24h_vol"],'.8f'))
+        usd_vol_24h = str(format(price[config.coin['coin_name']]["usd_24h_vol"],'.7f'))
         
         ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+<a href="www.coingecko.com/en/coins/bitweb">Coingecko</a>
+
 Current {config.coin['ticker']}/BTC price: <code>{btc}</code>  BTC 
 24h volume: <code>{btc_vol_24h}</code>  BTC
 
 Current {config.coin['ticker']}/USD price: $ <code>{usd}</code> 
 24h volume: $ <code>{usd_vol_24h}</code> 
-""", parse_mode="HTML")
+""", parse_mode="HTML", disable_web_page_preview=1)
+
+        btc2 = str(format(float(price2["price_btc"]),'.8f'))
+        usd2 = str(format(float(price2["price_usd"]),'.7f'))
+        volume_usd_24h = str(format(float(price2["volume_24h_usd"]),'.7f'))
+
+        ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+<a href="coinpaprika.com/coin/bte-bitweb/#!exchanges">Coinpaprika</a>
+
+Current {config.coin['ticker']}/BTC price: <code>{btc2}</code>  BTC 
+
+Current {config.coin['ticker']}/USD price: $ <code>{usd2}</code> 
+
+24h volume: $ <code>{volume_usd_24h}</code> 
+""", parse_mode="HTML", disable_web_page_preview=1)
+
+        cnv_bte = float(price3["data"]["high"])
+        cnv_bte_vol = float(price3["data"]["amount"])
+        cnv_btc = float(price4["data"]["high"])
+        cnv_usdt = float(price5["data"]["high"])
+
+        btc_bte = str(format(cnv_bte * cnv_btc,'.8f'))
+        btc_bte_vol = str(format(cnv_bte_vol * cnv_btc,'.8f'))
+        
+        udst_bte = str(format(cnv_bte * cnv_usdt,'.7f'))
+        bte_usdt_vol = str(format(cnv_bte_vol * cnv_usdt,'.7f'))
+
+        ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+
+<a href="www.coineal.com/trade/BTE-CNV">Coineal</a>
+
+Current {config.coin['ticker']}/CNV price: <code>{cnv_bte}</code>  CNV 
+24h volume: <code>{cnv_bte_vol}</code>  CNV
+
+Current {config.coin['ticker']}/BTC price: $ <code>{btc_bte}</code> 
+24h volume: <code>{btc_bte_vol}</code>  BTC
+
+Current {config.coin['ticker']}/USD price: $ <code>{udst_bte}</code> 
+24h volume: $ <code>{bte_usdt_vol}</code> 
+
+""", parse_mode="HTML", disable_web_page_preview=1)
 
 def info(update, ctx):
     gettime = str(update.message.date).split()
