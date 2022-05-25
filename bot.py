@@ -166,6 +166,7 @@ def price(update, ctx):
         price = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={config.coin['coin_name']}&vs_currencies=usd,btc&include_24hr_vol=true").json()
         
         price2 = requests.get(f"https://api.coinpaprika.com/v1/ticker/{config.coin['ticker']}-{config.coin['coin_name']}").json()
+        price3 = requests.get(f"https://www.ztb.im/api/v1/tickers").json()
         
         btc = str(format(price[config.coin['coin_name']]["btc"], '.8f'))
         usd = str(price[config.coin['coin_name']]["usd"])
@@ -193,7 +194,25 @@ Current {config.coin['ticker']}/BTC price: <code>{btc2}</code>  BTC
 
 Current {config.coin['ticker']}/USD price: $ <code>{usd2}</code> 
 
-24h volume: $ <code>{volume_usd_24h}</code> 
+24h volume: $ <code>{volume_usd_24h}</code>
+
+""", parse_mode="HTML", disable_web_page_preview=1)
+        
+        tickers = (price3['ticker'])
+        for ticker in tickers:
+            if ticker['symbol'] == 'BTE_USDT':
+                bte_usdt = str(ticker['last'])
+                volume_bte_usdt = float(ticker['vol']) * float(ticker['last'])
+
+        ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
+
+<a href="www.ztbzh.top/exchange?coin=BTE_USDT">ZT Global</a>
+
+Current {config.coin['ticker']}/USDT price: <code>{bte_usdt}</code>  USDT
+
+24h volume: <code>{volume_bte_usdt}</code>  USDT
+ 
+ 
 """, parse_mode="HTML", disable_web_page_preview=1)
 
 def info(update, ctx):
