@@ -490,7 +490,7 @@ def tip_or_withdrawFunc(update, ctx):
                     txid = requests.post(f"{config.apiUrl}/broadcast", data=post_data).json()['result']
 
                     ctx.bot.send_message(chat_id=chID, text=f"Success, sent @{db.getUserName(data[1])} {data[2]} {config.coin['ticker']}.")
-                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.org/tx/{str(txid)})", parse_mode="MarkdownV2")
+                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.net/tx/{str(txid)})", parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=chID, text="You do not have enough funds to tip that amount")
 
@@ -543,7 +543,7 @@ def tip_or_withdrawFunc(update, ctx):
                     txid = requests.post(f"{config.apiUrl}/broadcast", data=post_data).json()['result']
 
                     ctx.bot.send_message(chat_id=chID, text=f"Success, withdrew {data[2]} {config.coin['ticker']} to address {target_address.to_string()} ")
-                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.org/tx/{str(txid)})", parse_mode="MarkdownV2")
+                    ctx.bot.send_message(chat_id=chID, text=f"[View Transaction](https://explorer\\.bitwebcore\\.net/tx/{str(txid)})", parse_mode="MarkdownV2")
                 else:
                     ctx.bot.send_message(chat_id=chID, text="You do not have enough funds to withdraw the specified amount.")
             elif data[0] == "N":
