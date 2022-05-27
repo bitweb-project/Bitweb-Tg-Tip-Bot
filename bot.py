@@ -177,10 +177,13 @@ def price(update, ctx):
 <a href="www.coingecko.com/en/coins/bitweb">Coingecko</a>
 
 Current {config.coin['ticker']}/BTC price: <code>{btc}</code>  BTC 
+
 24h volume: <code>{btc_vol_24h}</code>  BTC
 
-Current {config.coin['ticker']}/USD price: $ <code>{usd}</code> 
-24h volume: $ <code>{usd_vol_24h}</code> 
+Current {config.coin['ticker']}/USD price: $ <code>{usd}</code> USD
+
+24h volume: $ <code>{usd_vol_24h}</code> USD
+
 """, parse_mode="HTML", disable_web_page_preview=1)
 
         btc2 = str(format(float(price2["price_btc"]),'.8f'))
@@ -192,9 +195,9 @@ Current {config.coin['ticker']}/USD price: $ <code>{usd}</code>
 
 Current {config.coin['ticker']}/BTC price: <code>{btc2}</code>  BTC 
 
-Current {config.coin['ticker']}/USD price: $ <code>{usd2}</code> 
+Current {config.coin['ticker']}/USD price: $ <code>{usd2}</code> USD
 
-24h volume: $ <code>{volume_usd_24h}</code>
+24h volume: $ <code>{volume_usd_24h}</code> USD
 
 """, parse_mode="HTML", disable_web_page_preview=1)
         
@@ -202,17 +205,26 @@ Current {config.coin['ticker']}/USD price: $ <code>{usd2}</code>
         for ticker in tickers:
             if ticker['symbol'] == 'BTE_USDT':
                 bte_usdt = str(ticker['last'])
-                volume_bte_usdt = float(ticker['vol']) * float(ticker['last'])
+                bte_vol = str(ticker['vol'])
+                volume_bte_usdt = str(format(float(ticker['vol']) * float(ticker['last']),'.7f'))
+                for ticker in tickers:
+                    if ticker['symbol'] == 'BTC_USDT':
+                        btc_usdt = str(ticker['last'])
+                        bte_btc = str(format(float(bte_usdt) / float(btc_usdt),'.8f'))
+                        volume_bte_btc = str(format(float(bte_vol) * float(bte_btc),'.8f'))
 
         ctx.bot.send_message(chat_id=update.message.chat_id, text=f"""
 
 <a href="www.ztbzh.top/exchange?coin=BTE_USDT">ZT Global</a>
 
+Current {config.coin['ticker']}/BTC price: $ <code>{bte_btc}</code>  BTC
+
+24h volume: <code>{volume_bte_btc}</code>  BTC
+
 Current {config.coin['ticker']}/USDT price: <code>{bte_usdt}</code>  USDT
 
 24h volume: <code>{volume_bte_usdt}</code>  USDT
- 
- 
+
 """, parse_mode="HTML", disable_web_page_preview=1)
 
 def info(update, ctx):
